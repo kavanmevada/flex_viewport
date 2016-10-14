@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+
+      * {
+        @include box-sizing(border-box);
+      }
+
+      section {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 0px;
+        overflow: hidden;
+      }
+
+      .module {
+        width: 33.33337%;
+        min-height: 200px;
+        background: white;
+        position: relative;
+        float: left;
+        padding: 0px;
+        margin-bottom: 4%;
+        opacity: 0;
+        box-shadow: 0 1px 3px rgba(black, 0.2);
+      }
+
+      .module:nth-child(odd) {
+        background: blue;
+      }
+      .module:nth-child(even) {
+        background: red;
+      }
+
+      body {
+        margin: 0px;
+        transition: opacity 0.4s;
+      }
+
+      .come-in {
+        transform: translateY(150px);
+        animation: come-in 0.4s ease forwards;
+        opacity: 1;
+      }
+      .come-in:nth-child(odd) {
+        animation-duration: 0.6s;
+        opacity: 1;
+      }
+      .already-visible {
+        transform: translateY(0);
+        animation: none;
+        opacity: 1;
+      }
+
+      @keyframes come-in {
+        to { transform: translateY(0); }
+      }
+
+    </style>
+  </head>
+  <body>
+
+    <section>
+
+      <div class="module"></div>
+      <div class="module"></div>
+      <div class="module"></div>
+      <div class="module"></div>
+      <div class="module"></div>
+      <div class="module"></div>
+      <div class="module"></div>
+      <div class="module"></div>
+      <div class="module"></div>
+      <div class="module"></div>
+      <div class="module"></div>
+      <div class="module"></div>
+      <div class="module"></div>
+      <div class="module"></div>
+      <div class="module"></div>
+      <div class="module"></div>
+      <div class="module"></div>
+      <div class="module"></div>
+      <div class="module"></div>
+      <div class="module"></div>
+      <div class="module"></div>
+      <div class="module"></div>
+      <div class="module"></div>
+      <div class="module"></div>
+
+    </section>
+
+
+
+
+    <script type="text/javascript">
+
+    var ele = document.querySelectorAll('.module');
+
+    var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0)
+    var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
+
+    function showRect(elem) {
+      var r = elem.getBoundingClientRect()
+      return { top:r.top, bottom:r.bottom}
+    }
+
+    for (var i = 0; i < ele.length; i++) {
+      var kava = (showRect(ele[i]).top+(ele[i].clientHeight/3));
+      if (kava <= h) {
+        ele[i].classList.add('already-visible');
+      }
+    }
+
+    window.addEventListener('scroll', function() {
+      for (var i = 0; i < ele.length; i++) {
+        var kava = (showRect(ele[i]).top+(ele[i].clientHeight/3));
+        if (kava <= h) {
+          ele[i].classList.add('come-in');
+        }
+      }
+    })
+
+    </script>
+
+  </body>
+</html>
