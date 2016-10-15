@@ -49,30 +49,31 @@
 
     <section>
 
-      <div class="module"></div>
-      <div class="module"></div>
-      <div class="module"></div>
-      <div class="module"></div>
-      <div class="module"></div>
-      <div class="module"></div>
-      <div class="module"></div>
-      <div class="module"></div>
-      <div class="module"></div>
-      <div class="module"></div>
-      <div class="module"></div>
-      <div class="module"></div>
-      <div class="module"></div>
-      <div class="module"></div>
-      <div class="module"></div>
-      <div class="module"></div>
-      <div class="module"></div>
-      <div class="module"></div>
-      <div class="module"></div>
-      <div class="module"></div>
-      <div class="module"></div>
-      <div class="module"></div>
-      <div class="module"></div>
-      <div class="module"></div>
+      <div class="module" module_id="1"></div>
+      <div class="module" module_id="2"></div>
+      <div class="module" module_id="3"></div>
+      <div class="module" module_id="4"></div>
+      <div class="module" module_id="5"></div>
+      <div class="module" module_id="6"></div>
+      <div class="module" module_id="7"></div>
+      <div class="module" module_id="8"></div>
+      <div class="module" module_id="9"></div>
+      <div class="module" module_id="10"></div>
+      <div class="module" module_id="11"></div>
+      <div class="module" module_id="12"></div>
+      <div class="module" module_id="13"></div>
+      <div class="module" module_id="14"></div>
+      <div class="module" module_id="15"></div>
+      <div class="module" module_id="16"></div>
+      <div class="module" module_id="17"></div>
+      <div class="module" module_id="18"></div>
+      <div class="module" module_id="19"></div>
+      <div class="module" module_id="20"></div>
+      <div class="module" module_id="21"></div>
+      <div class="module" module_id="22"></div>
+      <div class="module" module_id="23"></div>
+      <div class="module" module_id="24"></div>
+      <div class="module" module_id="25"></div>
 
     </section>
 
@@ -80,8 +81,29 @@
 
 
     <script type="text/javascript">
-
     var ele = document.querySelectorAll('.module');
+    var ele_array = [];
+    for (var i = 0; i < ele.length; i++) {
+        ele_array.push({
+            uid: ele[i].getAttribute('module_id'),
+            div: ele[i]
+        });
+    }
+
+    ele_array.sort(function(a, b) {
+      return parseFloat(a.uid) - parseFloat(b.uid);
+    });
+
+    //console.log(ele_array);
+    for (var i = 0; i < ele_array.length; i++) {
+      if ((i % 2) == 0) {
+        ele_array[i].div.style.animationDuration = "1s";
+      }
+      if ((i % 2) != 0) {
+        ele_array[i].div.style.animationDuration = "0.5s";
+      }
+    }
+
 
     var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0)
     var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
@@ -91,21 +113,24 @@
       return { top:r.top, bottom:r.bottom}
     }
 
-    for (var i = 0; i < ele.length; i++) {
-      var kava = (showRect(ele[i]).top+(ele[i].clientHeight/3));
+    console.log(ele_array[0].div);
+
+    for (var i = 0; i < ele_array.length; i++) {
+      var kava = (showRect(ele_array[i].div).top+(ele_array[i].div.clientHeight/3));
       if (kava <= h) {
-        ele[i].style.animation = "none";
+        ele_array[i].div.style.animationDuration = "0s";
+        ele_array[i].div.style.opacity = 1;
       } else {
-        ele[i].style.opacity = 0;
+        ele_array[i].div.style.opacity = 0;
       }
     }
 
     window.addEventListener('scroll', function() {
-      for (var i = 0; i < ele.length; i++) {
-        var kava = (showRect(ele[i]).top+(ele[i].clientHeight/3));
+      for (var i = 0; i < ele_array.length; i++) {
+        var kava = (showRect(ele_array[i].div).top+(ele_array[i].div.clientHeight/3));
         if (kava <= h) {
-          ele[i].style.opacity = 1;
-          ele[i].classList.add('come-in');
+          ele_array[i].div.style.opacity = 1;
+          ele_array[i].div.classList.add('come-in');
         }
       }
     })
